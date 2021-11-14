@@ -1,0 +1,79 @@
+<html>
+  <head>
+     <title>Elle AR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"  />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/dist/mindar-image-aframe.prod.js"></script>
+  
+
+  <script>
+    
+   
+    window.onload = function() {
+   
+    const sceneEl = document.querySelector('a-scene');
+    const arSystem = sceneEl.systems["mindar-image-system"];
+    const scene = document.querySelector("a-scene");
+      
+  
+    
+    // arReady event triggered when ready
+    sceneEl.addEventListener("arReady", (event) => {
+       console.log("MindAR is ready")
+    });
+      
+  var targetVid = document.getElementById("backVideo");
+    // detect target found
+     const exampleTarget = document.querySelector('#backAR');
+      exampleTarget.addEventListener("targetFound", event => {
+        console.log("target found backAR");
+          targetVid.play();
+      });
+
+      // detect target lost
+      exampleTarget.addEventListener("targetLost", event => {
+        console.log("target lost backAR");
+          //targetVid.stop();
+      });
+      
+  const VRButton = document.querySelector('#start-button');
+    VRButton.addEventListener("click",event =>{
+        
+         console.log("target lost backAR");
+    });
+        
+ }
+
+
+     
+    </script>
+  </head>
+       
+  <body>  
+   
+    
+    <a-scene mindar-image="imageTargetSrc: https://cdn.glitch.me/5b541583-3518-4762-aa17-c544a070bbb6%2Ftarget_back_whole.mind?v=1636601164270; maxTrack: 2" 
+             color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: false" 
+             device-orientation-permission-ui="enabled: false">
+      <a-assets>
+       
+         <video id="backVideo"  src="https://cdn.glitch.me/5b541583-3518-4762-aa17-c544a070bbb6%2Fback_bazza.mp4?v=1636873078442"  width="1" height="1"  autoplay muted loop  playsinline></a-video>
+       
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"  far="100000"></a-camera>
+     
+            
+      <a-entity id ="backAR"  mindar-image-target="targetIndex: 0">
+       <a-video rotation="0 0 0 " position="0 0 0" scale="1 0.514 1" src="#backVideo" loop="true" ></a-video>
+      </a-entity>
+    
+  
+    </a-scene>
+  </body>
+</html>
+    
+    
